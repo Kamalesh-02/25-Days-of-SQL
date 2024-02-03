@@ -1,7 +1,8 @@
 # Write your MySQL query statement below
 
-SELECT 'Low Salary' category,sum(if(income<20000,1,0)) accounts_count FROM accounts
-UNION 
-SELECT 'Average Salary' category,sum(if(income between 20000 and 50000,1,0)) accounts_count FROM accounts
-UNION 
-SELECT 'High Salary' category,sum(if(income>50000,1,0)) accounts_count FROM accounts
+SELECT q1.person_name
+FROM Queue q1 JOIN Queue q2 ON q1.turn >= q2.turn
+GROUP BY q1.turn
+HAVING SUM(q2.weight) <= 1000
+ORDER BY SUM(q2.weight) DESC
+LIMIT 1
